@@ -66,6 +66,19 @@ mysql_query("CREATE TABLE ".$table."
     $results = json_decode($request);
     $json = $results->items;
 
+
+// FORMULAIRE DE RECHERCHE
+
+?>
+<div class="recherche">
+<form action="membre.php" method="post">
+<input type="text" name="titre" value="<?php if (isset($_POST['auteur'])) 
+    echo htmlentities(trim($_POST['titre'])); ?>">
+<input type="submit" name="rechercher" value="Rechercher">
+</form>
+</div>
+<?php
+
 // SI LE FICHIER $JSONDECODE EST SUPÉRIEURE À 50BYTES (C'EST À DIRE QU'IL Y A DU CONTENU) ON S'EN SERT
 
 if(filesize($jsondecode) > 50 ){
@@ -184,19 +197,26 @@ if(filesize($jsondecode) > 50 ){
 
                                         }
 
-                                        ?>
-                                        <div class="recherche">
-                                        <form action="membre.php" method="post">
-                                            <input type="text" name="subtitle" value="<?php if (isset($_POST['titre'])) 
-                                                echo htmlentities(trim($_POST['titre'])); ?>">
-                                            <input type="submit" name="Rechercher" value="Rechercher">
-                                        </form>
-                                        </div>
-                                        <?php
 
-$billy = "SELECT titre, auteur, subtitle FROM ".$table." WHERE '".mysql_escape_string($_POST['titre'])."'";
+if (isset($_POST['rechercher']) && $_POST['rechercher'] == 'Rechercher') {
+
+$billy = "SELECT titre, auteur, subtitle, sub FROM ".$table." WHERE auteur='".mysql_escape_string($_POST['auteur'])."'";
 $requete = mysql_query($billy) or die ('Erreur SQL !<br />'.$billy.'<br />'.mysql_error());
 
+mysql_close($db_selected);
+while($resultat = mysql_fetch_object($requete))
+     {
+        ?> 
+        <div class="livres" id="recherche">
+            <h1> <?php echo $resultat->auteur ?></h1>
+            <h2> <?php echo $resultat->titre  ?></h2>
+            <i><h3 id="test"><?php echo $resultat->subtitle ?></h3></i>
+            <h4> <?php echo $resultat->sub    ?></h4>
+        </div>
+    <?php
+     }
+} 
+    
 // À LA FIN DU TRAITEMENT ON SUPPRIME LE CODE BARRE POUR ÉVITER LES DOUBLONS                                  
 
    if( file_exists ( $file))
