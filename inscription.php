@@ -52,7 +52,7 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="style.php"/>
 <title>Inscription</title>
 </head>
 

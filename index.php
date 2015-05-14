@@ -51,7 +51,7 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 ?>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="style.php"/>
 <title>Accueil</title>
 </head>
 

@@ -8,7 +8,7 @@ if (!isset($_SESSION['login'])) {
 <html>
 <head>
 <title>Bibliotheque</title>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="style.php"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -216,6 +216,26 @@ while($resultat = mysql_fetch_object($requete))
     <?php
      }
 } 
+
+
+
+$bibli = "SELECT id, titre, auteur, sub, subtitle FROM ".$table." WHERE id";
+$raquette = mysql_query($bibli) or die ('Erreur SQL !<br />'.$bibli.'<br />'.mysql_error());
+
+mysql_close($db_selected);
+?> <div class="bibliotheque"> <?php
+while($resul = mysql_fetch_object($raquette))
+{
+   ?> 
+    <ul>
+        <li>
+            <?php echo $resul->id; ?>
+            </li>
+    </ul> 
+    <?php
+}
+?> </div> 
+    <?php
     
 // À LA FIN DU TRAITEMENT ON SUPPRIME LE CODE BARRE POUR ÉVITER LES DOUBLONS                                  
 
